@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <EditText
+        android:id="@+id/contact_name"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_marginTop="50dp"
+        android:hint="Enter the name"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:id="@+id/contact_phone_number"
+        android:layout_below="@id/contact_name"
+        android:hint="Enter the phone number"/>
+
+</RelativeLayout>

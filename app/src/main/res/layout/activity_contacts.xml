@@ -153,7 +153,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="73dp"
-                            android:text="Button"
+                            android:text="@string/cancel"
                             tools:text="@string/cancel" />
 
                         <Switch

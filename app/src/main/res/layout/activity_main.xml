@@ -26,7 +26,7 @@
             android:textColor="@android:color/background_dark"
             android:textSize="40sp"
             android:textStyle="italic"
-            tools:text="SAMAYA" />
+            android:text="SAMAYA" />
 
         <ImageView
             android:id="@+id/Logo_image_view"
@@ -38,7 +38,7 @@
             android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-            app:srcCompat="@drawable/samaya" />
+            android:src="@drawable/samaya" />
     </LinearLayout>
 
     <fragment

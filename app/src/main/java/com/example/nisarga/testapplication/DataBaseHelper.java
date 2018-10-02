@@ -24,7 +24,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        Toast.makeText(MainActivity.context,"Database created",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ContactsActivity.context,"Database created",Toast.LENGTH_SHORT).show();
         db.execSQL(SQL_CREATE_ENTRIES);
 
     }

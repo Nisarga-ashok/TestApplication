@@ -147,7 +147,7 @@
                             android:text="@string/add" />
 
                         <Button
-                            android:id="@+id/cancelp1"
+                            android:id="@+id/updatep1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
@@ -249,7 +249,7 @@
                             tools:text="@string/add" />
 
                         <Button
-                            android:id="@+id/cancelp2"
+                            android:id="@+id/updatep2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
@@ -351,14 +351,14 @@
                             tools:text="ADD" />
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/updatep3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="73dp"
                             android:text="@string/cancel"
-                            tools:text="CANCEL" />
+                             />
 
                         <Switch
                             android:id="@+id/switch1"

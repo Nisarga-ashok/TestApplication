@@ -26,7 +26,7 @@
             android:textColor="@android:color/background_dark"
             android:textSize="40sp"
             android:textStyle="italic"
-            tools:text="SAMAYA" />
+            android:text="@string/samaya" />
 
         <ImageView
             android:id="@+id/Logo_image_view"
@@ -91,9 +91,9 @@
                         android:layout_marginStart="11dp"
                         android:layout_marginTop="12dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="@string/priority1"
                         android:textSize="24sp"
-                        tools:text="Priority 1" />
+                        tools:text="@string/priority1" />
 
 
                     -
@@ -144,8 +144,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_weight="1"
-                            android:text="Button"
-                            tools:text="ADD" />
+                            android:text="@string/add" />
 
                         <Button
                             android:id="@+id/cancelp1"
@@ -155,7 +154,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="73dp"
                             android:text="Button"
-                            tools:text="CANCEL" />
+                            tools:text="@string/cancel" />
 
                         <Switch
                             android:id="@+id/enablep1"
@@ -193,7 +192,7 @@
                         android:layout_marginStart="11dp"
                         android:layout_marginTop="12dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="Priority 2"
                         android:textSize="24sp"
                         tools:text="Priority 2" />
 
@@ -246,8 +245,8 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_weight="1"
-                            android:text="Button"
-                            tools:text="ADD" />
+                            android:text="@string/add"
+                            tools:text="@string/add" />
 
                         <Button
                             android:id="@+id/cancelp2"
@@ -256,8 +255,8 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="73dp"
-                            android:text="Button"
-                            tools:text="CANCEL" />
+                            android:text="@string/cancel"
+                             />
 
                         <Switch
                             android:id="@+id/enablep2"
@@ -295,7 +294,7 @@
                         android:layout_marginStart="11dp"
                         android:layout_marginTop="12dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="Priority 3"
                         android:textSize="24sp"
                         tools:text="Priority 3" />
 
@@ -342,13 +341,13 @@
                         android:layout_height="wrap_content">
 
                         <Button
-                            android:id="@+id/button"
+                            android:id="@+id/addp3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_weight="1"
-                            android:text="Button"
+                            android:text="@string/add"
                             tools:text="ADD" />
 
                         <Button
@@ -358,7 +357,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="73dp"
-                            android:text="Button"
+                            android:text="@string/cancel"
                             tools:text="CANCEL" />
 
                         <Switch

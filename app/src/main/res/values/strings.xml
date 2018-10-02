@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TestApplication</string>
+    <string name="samaya">SAMAYA</string>
+    <string name="priority1">Priority 1</string>
+    <string name="add">ADD</string>
+    <string name="cancel">CANCEL</string>
 </resources>

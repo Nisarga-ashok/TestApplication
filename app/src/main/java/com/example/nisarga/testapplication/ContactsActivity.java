@@ -26,6 +26,8 @@ public class ContactsActivity extends AppCompatActivity {
     EditText thirdPhone;
 
     Button firstButton;
+    Button secondButton;
+    Button thridButton;
 
 
     @Override
@@ -41,9 +43,11 @@ public class ContactsActivity extends AppCompatActivity {
 
         secondName=findViewById(R.id.namep2);
         secondPhone=findViewById(R.id.php2);
+        secondButton=findViewById(R.id.addp2);
 
         thirdName=findViewById(R.id.namep3);
         thirdPhone=findViewById(R.id.php3);
+        thridButton=findViewById(R.id.addp3);
 
 
 
@@ -60,6 +64,7 @@ public class ContactsActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put(DataBaseSchema.ATTR1_NAME, firstName.getText().toString());
                     values.put(DataBaseSchema.ATTR2_PHONE_NUMBER, firstPhone.getText().toString());
+                    values.put(DataBaseSchema.ATTR3_PRIORITY,"1");
 
                     db.insert(DataBaseSchema.TABLE_NAME, null, values);
                     Toast.makeText(MainActivity.context,"Inserted into databae",Toast.LENGTH_SHORT).show();
@@ -71,45 +76,95 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
-        Button checkButton=findViewById(R.id.cancelp1);
-        checkButton.setOnClickListener(new View.OnClickListener()
+        secondButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                String[] projection = {
-                        BaseColumns._ID,
-                        DataBaseSchema.ATTR1_NAME,
-                        DataBaseSchema.ATTR2_PHONE_NUMBER
-                };
+                try
+                {
+                    DataBaseHelper mDataBaseHelper = new DataBaseHelper(getApplicationContext());
+                    SQLiteDatabase db = mDataBaseHelper.getWritableDatabase();
 
-                DataBaseHelper mDataBaseHelper=new DataBaseHelper(getApplicationContext());
-                SQLiteDatabase db=mDataBaseHelper.getReadableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put(DataBaseSchema.ATTR1_NAME, secondName.getText().toString());
+                    values.put(DataBaseSchema.ATTR2_PHONE_NUMBER, secondPhone.getText().toString());
+                    values.put(DataBaseSchema.ATTR3_PRIORITY,"2");
 
-                Cursor cursor=db.query(
-                        DataBaseSchema.TABLE_NAME,
-                        projection,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-
-                );
-
-
-                String name=null;
-                long phone=0;
-                while(cursor.moveToNext()) {
-                    name=cursor.getString(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR1_NAME));
-                    phone=cursor.getLong(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR2_PHONE_NUMBER));
+                    db.insert(DataBaseSchema.TABLE_NAME, null, values);
+                    Toast.makeText(MainActivity.context,"Inserted into databae",Toast.LENGTH_SHORT).show();
                 }
-                cursor.close();
-
-                Toast.makeText(MainActivity.context,name+" "+phone,Toast.LENGTH_SHORT).show();
-
-
+                catch (Exception e)
+                {
+                    Log.e("MyTag",e.toString());
+                }
             }
         });
+
+        thridButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                try
+                {
+                    DataBaseHelper mDataBaseHelper = new DataBaseHelper(getApplicationContext());
+                    SQLiteDatabase db = mDataBaseHelper.getWritableDatabase();
+
+                    ContentValues values = new ContentValues();
+                    values.put(DataBaseSchema.ATTR1_NAME, thirdName.getText().toString());
+                    values.put(DataBaseSchema.ATTR2_PHONE_NUMBER, thirdPhone.getText().toString());
+                    values.put(DataBaseSchema.ATTR3_PRIORITY,"3");
+
+                    db.insert(DataBaseSchema.TABLE_NAME, null, values);
+                    Toast.makeText(MainActivity.context,"Inserted into databae",Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e)
+                {
+                    Log.e("MyTag",e.toString());
+                }
+            }
+        });
+
+//        Button checkButton=findViewById(R.id.cancelp1);
+//        checkButton.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                String[] projection = {
+//                        BaseColumns._ID,
+//                        DataBaseSchema.ATTR1_NAME,
+//                        DataBaseSchema.ATTR2_PHONE_NUMBER
+//                };
+//
+//                DataBaseHelper mDataBaseHelper=new DataBaseHelper(getApplicationContext());
+//                SQLiteDatabase db=mDataBaseHelper.getReadableDatabase();
+//
+//                Cursor cursor=db.query(
+//                        DataBaseSchema.TABLE_NAME,
+//                        projection,
+//                        null,
+//                        null,
+//                        null,
+//                        null,
+//                        null
+//
+//                );
+//
+//
+//                String name=null;
+//                long phone=0;
+//                while(cursor.moveToNext()) {
+//                    name=cursor.getString(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR1_NAME));
+//                    phone=cursor.getLong(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR2_PHONE_NUMBER));
+//                }
+//                cursor.close();
+//
+//                Toast.makeText(MainActivity.context,name+" "+phone,Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//        });
     }
 }

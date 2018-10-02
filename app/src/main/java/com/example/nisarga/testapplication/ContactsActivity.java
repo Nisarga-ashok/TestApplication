@@ -49,7 +49,7 @@ public class ContactsActivity extends AppCompatActivity {
         thirdPhone=findViewById(R.id.php3);
         thridButton=findViewById(R.id.addp3);
 
-
+        updateUI();
 
         firstButton.setOnClickListener(new View.OnClickListener()
         {
@@ -73,6 +73,8 @@ public class ContactsActivity extends AppCompatActivity {
                 {
                     Log.e("MyTag",e.toString());
                 }
+
+                updateUI();
             }
         });
 
@@ -98,6 +100,8 @@ public class ContactsActivity extends AppCompatActivity {
                 {
                     Log.e("MyTag",e.toString());
                 }
+
+                updateUI();
             }
         });
 
@@ -123,48 +127,62 @@ public class ContactsActivity extends AppCompatActivity {
                 {
                     Log.e("MyTag",e.toString());
                 }
+
+                updateUI();
             }
         });
 
-//        Button checkButton=findViewById(R.id.cancelp1);
-//        checkButton.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                String[] projection = {
-//                        BaseColumns._ID,
-//                        DataBaseSchema.ATTR1_NAME,
-//                        DataBaseSchema.ATTR2_PHONE_NUMBER
-//                };
-//
-//                DataBaseHelper mDataBaseHelper=new DataBaseHelper(getApplicationContext());
-//                SQLiteDatabase db=mDataBaseHelper.getReadableDatabase();
-//
-//                Cursor cursor=db.query(
-//                        DataBaseSchema.TABLE_NAME,
-//                        projection,
-//                        null,
-//                        null,
-//                        null,
-//                        null,
-//                        null
-//
-//                );
-//
-//
-//                String name=null;
-//                long phone=0;
-//                while(cursor.moveToNext()) {
-//                    name=cursor.getString(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR1_NAME));
-//                    phone=cursor.getLong(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR2_PHONE_NUMBER));
-//                }
-//                cursor.close();
-//
-//                Toast.makeText(MainActivity.context,name+" "+phone,Toast.LENGTH_SHORT).show();
-//
-//
-//            }
-//        });
+    }
+
+    void updateUI()
+    {
+        DataBaseHelper mDataBaseHelper= new DataBaseHelper(getApplicationContext());
+        SQLiteDatabase db=mDataBaseHelper.getReadableDatabase();
+
+        String[] projections={DataBaseSchema._ID,DataBaseSchema.ATTR1_NAME,DataBaseSchema.ATTR2_PHONE_NUMBER,DataBaseSchema.ATTR3_PRIORITY};
+
+        Cursor cursor=db.query(
+                DataBaseSchema.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        List names=new ArrayList<>();
+        List phone_number=new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            String name=cursor.getString(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR1_NAME));
+            String ph_no=cursor.getString(cursor.getColumnIndexOrThrow(DataBaseSchema.ATTR2_PHONE_NUMBER));
+            Log.i("MyTag",name+" is retrieved");
+            Log.i("MyTag",ph_no+" is retrieved");
+            names.add(name);
+            phone_number.add(ph_no);
+        }
+
+        if(names.size()<=3 && names.size()>0)
+        {
+            firstName.setText(names.get(0).toString());
+            firstPhone.setText(phone_number.get(0).toString());
+        }
+
+        if(names.size()<=3 && names.size()>1)
+        {
+            secondName.setText(names.get(1).toString());
+            secondPhone.setText(phone_number.get(1).toString());
+        }
+
+        if(names.size()<=3 && names.size()>2)
+        {
+            thirdName.setText(names.get(2).toString());
+            thirdPhone.setText(phone_number.get(2).toString());
+        }
+
+
+
+
     }
 }

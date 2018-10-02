@@ -106,6 +106,8 @@ public class ContactsActivity extends AppCompatActivity {
                 }
                 cursor.close();
 
+                Toast.makeText(MainActivity.context,name+" "+phone,Toast.LENGTH_SHORT).show();
+
 
             }
         });

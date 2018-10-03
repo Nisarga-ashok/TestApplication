@@ -418,7 +418,7 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/editText6"
+                    android:id="@+id/default_message"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginEnd="40dp"
@@ -430,6 +430,13 @@
                     android:hint=" Type ur Msg to be sent here"
                     android:inputType="textShortMessage|textLongMessage|textPostalAddress"
                     tools:layout_marginRight="30dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/msgupdate"/>
 
             </LinearLayout>
 

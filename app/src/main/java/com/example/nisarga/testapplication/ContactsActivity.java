@@ -1,10 +1,15 @@
 package com.example.nisarga.testapplication;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,12 +24,15 @@ import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity {
 
+    public static final int MY_PERMISSIONS_REQUEST=3;
+
     EditText firstName;
     EditText firstPhone;
     EditText secondName;
     EditText secondPhone;
     EditText thirdName;
     EditText thirdPhone;
+    EditText messageText;
 
     Button firstButton;
     Button secondButton;
@@ -32,6 +40,9 @@ public class ContactsActivity extends AppCompatActivity {
     Button firstUpdateButton;
     Button secondUpdateButton;
     Button thirdUpdateButton;
+    Button messageUpdateButton;
+
+
 
     public static Context context;
 
@@ -40,6 +51,9 @@ public class ContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+
+        checkPermission();
+
 
         context=getApplicationContext();
 
@@ -57,6 +71,10 @@ public class ContactsActivity extends AppCompatActivity {
         thirdPhone=findViewById(R.id.php3);
         thridButton=findViewById(R.id.addp3);
         thirdUpdateButton=findViewById(R.id.updatep3);
+
+        messageText=findViewById(R.id.default_message);
+        messageUpdateButton=findViewById(R.id.msgupdate);
+
 
 
         updateUI();
@@ -235,14 +253,64 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
+        messageUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataBaseHelper mDataBaseHelper=new DataBaseHelper(getApplicationContext());
+                SQLiteDatabase db=mDataBaseHelper.getWritableDatabase();
+
+                ContentValues values=new ContentValues();
+                values.put(DataBaseSchema.ATTR1_MESSAGE,messageText.getText().toString());
+                values.put(DataBaseSchema.ATTR3_PRIORITY,"4");
+
+                String args=DataBaseSchema.ATTR3_PRIORITY+" LIKE ?";
+                String argSelection[]={"4"};
+
+
+                int rowAffected=0;
+                try {
+                    rowAffected = db.update(DataBaseSchema.TABLE_NAME_MESSAGE, values, args, argSelection);
+                }
+                catch (Exception e)
+                {
+
+                }
+
+                if(rowAffected==0)
+                {
+                    db.insert(DataBaseSchema.TABLE_NAME_MESSAGE,null,values);
+                    Toast.makeText(getApplicationContext(),"Default message set",Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Updated default message",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode==MY_PERMISSIONS_REQUEST)
+        {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(),"Permission granted",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(),"Permission is needed for the app",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+
+
     }
 
     void updateUI()
     {
         DataBaseHelper mDataBaseHelper= new DataBaseHelper(getApplicationContext());
         SQLiteDatabase db=mDataBaseHelper.getReadableDatabase();
-
-        String[] projections={DataBaseSchema._ID,DataBaseSchema.ATTR1_NAME,DataBaseSchema.ATTR2_PHONE_NUMBER,DataBaseSchema.ATTR3_PRIORITY};
 
         Cursor cursor=db.query(
                 DataBaseSchema.TABLE_NAME,
@@ -301,8 +369,40 @@ public class ContactsActivity extends AppCompatActivity {
             thridButton.setEnabled(false);
         }
 
+        Cursor cursor1=db.query(DataBaseSchema.TABLE_NAME_MESSAGE,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
 
+        try
+        {
+            cursor1.moveToFirst();
+            messageText.setText(cursor1.getString(cursor1.getColumnIndexOrThrow(DataBaseSchema.ATTR1_MESSAGE)));
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
+    void checkPermission()
+    {
+        if ((ContextCompat.checkSelfPermission(ContactsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)||(ContextCompat.checkSelfPermission(ContactsActivity.this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED)) {
+            // Permission is not granted
+            ActivityCompat.requestPermissions(ContactsActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.SEND_SMS},
+                    MY_PERMISSIONS_REQUEST);
+
+        }
 
 
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.nisarga.testapplication;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -64,10 +65,17 @@ public class ContactsActivity extends AppCompatActivity {
 
         checkPermission();
 
+        if(!isServiceRunning(BlueToothService.class))
+        {
+            Intent intent = new Intent(this, BlueToothService.class);
+            startService(intent);
+        }
+
 
         context=getApplicationContext();
 
         firstName=findViewById(R.id.namep1);
+        firstName.setShowSoftInputOnFocus(false);
         firstPhone=findViewById(R.id.php1);
         firstButton=findViewById(R.id.addp1);
         firstUpdateButton=findViewById(R.id.updatep1);
@@ -412,6 +420,16 @@ public class ContactsActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

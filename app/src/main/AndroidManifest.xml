@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <service android:name=".BlueToothService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
+
         <activity android:name=".MainActivity" />
         <activity android:name=".ContactsActivity">
             <intent-filter>

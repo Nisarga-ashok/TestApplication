@@ -1,7 +1,9 @@
 package com.example.nisarga.testapplication;
 
 import android.os.AsyncTask;
+import android.telephony.SmsManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,6 +46,17 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String> {
         nearbyPlacesList =  dataParser.parse(result);
         ShowNearbyPlaces(nearbyPlacesList);
         Log.d("GooglePlacesReadTask", "onPostExecute Exit");
+        DurationParser durationParser=new DurationParser();
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage("+919482909698",
+                null,
+                "Emergency for Nisarga. The nearest hospital is " +durationParser.parse(GetNearbyPlacesData.shortestDurationJson)+" seconds away",
+                null,
+                null);
+        Toast.makeText(MainActivity.context, "SMS sent.",
+                Toast.LENGTH_LONG).show();
+
+
     }
 
     private void ShowNearbyPlaces(List<HashMap<String, String>> nearbyPlacesList) {

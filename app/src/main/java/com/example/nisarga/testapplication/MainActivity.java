@@ -81,7 +81,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //            }
 //        });
 
-//        context=getApplicationContext();
+          context=getApplicationContext();
 
         myDate=Calendar.getInstance().getTime();
         mDateTestView=findViewById(R.id.Time);
@@ -275,69 +275,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         getNearbyPlacesData.execute(DataTransfer);
         Toast.makeText(MainActivity.this,"Nearby Restaurants", Toast.LENGTH_LONG).show();
 
-        DurationParser durationParser=new DurationParser();
-        SmsManager smsManager = SmsManager.getDefault();
-        int seconds=durationParser.parse(GetNearbyPlacesData.shortestDurationJson);
-        int minutes=seconds/60;
-        smsManager.sendTextMessage("+919482909698",
-                null,
-                "Emergency for Nisarga. The nearest hospital is " +minutes+" minutes away",
-                null,
-                null);
-        Toast.makeText(getApplicationContext(), "SMS sent.",
-                Toast.LENGTH_LONG).show();
+
 
 
     }
 }
-
-//    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-//    public boolean checkLocationPermission(){
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Asking user if explanation is needed
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-//
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//
-//                //Prompt the user once explanation has been shown
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                        MY_PERMISSIONS_REQUEST_LOCATION);
-//
-//
-//            } else {
-//                // No explanation needed, we can request the permission.
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                        MY_PERMISSIONS_REQUEST_LOCATION);
-//            }
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
-//
-//    protected void sendSMSMessage() {
-//
-//
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.SEND_SMS)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.SEND_SMS)) {
-//            } else {
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.SEND_SMS},
-//                        MY_PERMISSIONS_REQUEST_SEND_SMS);
-//            }
-//        }
-//    }
-
 

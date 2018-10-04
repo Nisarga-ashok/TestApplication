@@ -2,6 +2,7 @@ package com.example.nisarga.testapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +32,7 @@ public class Settings extends AppCompatActivity {
     EditText Minimum;
     EditText Optimal;
     Button Updaterangebutton;
+    Button testMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class Settings extends AppCompatActivity {
         myDate= Calendar.getInstance().getTime();
         mTimeTestView=findViewById(R.id.Time);
         mTimeTestView.setText(+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
+
+        testMaps=findViewById( R.id.test_maps);
 
         final Context context=this;
 
@@ -70,6 +74,16 @@ public class Settings extends AppCompatActivity {
                 Toast.makeText(context,"The values are updated",Toast.LENGTH_SHORT).show();
                 updateUI();
 
+            }
+        });
+
+        testMaps.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent=new Intent(Settings.this,MainActivity.class);
+                startActivity(intent);
             }
         });
     }

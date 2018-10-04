@@ -2,22 +2,17 @@ package com.example.nisarga.testapplication;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +25,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,8 +33,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -68,8 +60,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     Marker mCurrLocationMarker;
     Location mLastLocation;
     public static Context context;
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0;
-    private Button mContactsButton;
+
 
 
 
@@ -81,24 +72,24 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        mContactsButton=findViewById(R.id.priority_Button);
-        mContactsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,ContactsActivity.class);
-                startActivity(intent);
-            }
-        });
+//        mContactsButton=findViewById(R.id.priority_Button);
+//        mContactsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(MainActivity.this,ContactsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
-        context=getApplicationContext();
+//        context=getApplicationContext();
 
         myDate=Calendar.getInstance().getTime();
         mDateTestView=findViewById(R.id.Time);
         mDateTestView.setText(" "+myDate.getDate()+"/"+myDate.getMonth() +" | "+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
+//        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            checkLocationPermission();
+//        }
 
         //Check if Google Play Services Available or not
         if (!CheckGooglePlayServices()) {
@@ -113,7 +104,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        sendSMSMessage();
+//        sendSMSMessage();
 
         }
 
@@ -136,7 +127,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         // Do other setup activities here too, as described elsewhere in this tutorial.
 
         // Turn on the My Location layer and the related control on the map.
@@ -159,6 +150,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         }
 
+
+
+
+
     }
 
     private String getUrl(double latitude, double longitude, String nearbyPlace) {
@@ -173,42 +168,34 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         return (googlePlacesUrl.toString());
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
-                                           @NonNull int[] grantResults)
-    {
-        mLocationPermissionGranted = false;
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationPermissionGranted = true;
-                }
-                return;
-            }
-            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    DurationParser durationParser=new DurationParser();
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage("+919482909698",
-                            null,
-                            "Emergency. The nearest hospital is " +durationParser.parse(GetNearbyPlacesData.shortestDurationJson)+" minutes away",
-                            null,
-                            null);
-                    Toast.makeText(getApplicationContext(), "SMS sent.",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        }
-
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           @NonNull String permissions[],
+//                                           @NonNull int[] grantResults)
+//    {
+//        mLocationPermissionGranted = false;
+//        switch (requestCode) {
+//            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    mLocationPermissionGranted = true;
+//                }
+//                return;
+//            }
+//            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                } else {
+//                    Toast.makeText(getApplicationContext(),
+//                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+//                }
+//
+//            }
+//        }
+//
+//    }
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -265,7 +252,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(35));
         Toast.makeText(MainActivity.this,"Your Current Location", Toast.LENGTH_LONG).show();
 
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f",latitude,longitude));
@@ -288,54 +275,69 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         getNearbyPlacesData.execute(DataTransfer);
         Toast.makeText(MainActivity.this,"Nearby Restaurants", Toast.LENGTH_LONG).show();
 
-    }
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    public boolean checkLocationPermission(){
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Asking user if explanation is needed
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-                //Prompt the user once explanation has been shown
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+        DurationParser durationParser=new DurationParser();
+        SmsManager smsManager = SmsManager.getDefault();
+        int seconds=durationParser.parse(GetNearbyPlacesData.shortestDurationJson);
+        int minutes=seconds/60;
+        smsManager.sendTextMessage("+919482909698",
+                null,
+                "Emergency for Nisarga. The nearest hospital is " +minutes+" minutes away",
+                null,
+                null);
+        Toast.makeText(getApplicationContext(), "SMS sent.",
+                Toast.LENGTH_LONG).show();
 
 
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-    protected void sendSMSMessage() {
-
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.SEND_SMS)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.SEND_SMS},
-                        MY_PERMISSIONS_REQUEST_SEND_SMS);
-            }
-        }
     }
 }
+
+//    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+//    public boolean checkLocationPermission(){
+//        if (ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//
+//            // Asking user if explanation is needed
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+//
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//
+//                //Prompt the user once explanation has been shown
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                        MY_PERMISSIONS_REQUEST_LOCATION);
+//
+//
+//            } else {
+//                // No explanation needed, we can request the permission.
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                        MY_PERMISSIONS_REQUEST_LOCATION);
+//            }
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
+//
+//    protected void sendSMSMessage() {
+//
+//
+//        if (ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.SEND_SMS)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                    Manifest.permission.SEND_SMS)) {
+//            } else {
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.SEND_SMS},
+//                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+//            }
+//        }
+//    }
+
+

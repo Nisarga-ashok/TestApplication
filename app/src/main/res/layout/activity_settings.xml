@@ -91,7 +91,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/Max"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -101,7 +101,7 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/Optimal"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -111,7 +111,7 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/Min"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -124,14 +124,14 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/Saverange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/Updaterange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

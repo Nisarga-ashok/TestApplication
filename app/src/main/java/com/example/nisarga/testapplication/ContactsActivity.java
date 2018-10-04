@@ -3,6 +3,7 @@ package com.example.nisarga.testapplication;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -41,6 +42,7 @@ public class ContactsActivity extends AppCompatActivity {
     Button secondUpdateButton;
     Button thirdUpdateButton;
     Button messageUpdateButton;
+    private Button mSettings;
 
 
 
@@ -51,6 +53,14 @@ public class ContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+        mSettings=findViewById(R.id.Settings);
+        mSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ContactsActivity.this,Settings.class);
+                startActivity(intent);
+            }
+        });
 
         checkPermission();
 

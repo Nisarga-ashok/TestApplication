@@ -2,6 +2,7 @@ package com.example.nisarga.testapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Settings extends AppCompatActivity {
+
+
     public static Context context;
     private Date myDate;
     private TextView mDateTestView;
@@ -27,7 +30,6 @@ public class Settings extends AppCompatActivity {
     EditText Maximum;
     EditText Minimum;
     EditText Optimal;
-    Button Saverangebutton;
     Button Updaterangebutton;
 
     @Override
@@ -38,7 +40,6 @@ public class Settings extends AppCompatActivity {
         Minimum=findViewById(R.id.Min);
         Optimal=findViewById(R.id.Optimal);
         Maximum=findViewById(R.id.Max);
-        Saverangebutton=findViewById(R.id.Saverange);
         Updaterangebutton=findViewById(R.id.Updaterange);
 
         myDate= Calendar.getInstance().getTime();
@@ -48,6 +49,41 @@ public class Settings extends AppCompatActivity {
         myDate= Calendar.getInstance().getTime();
         mTimeTestView=findViewById(R.id.Time);
         mTimeTestView.setText(+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
+
+        final Context context=this;
+
+
+        updateUI();
+        Updaterangebutton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                SharedPreferences sharedPreferences=context.getSharedPreferences(getString(R.string.preference_file_key),context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor=sharedPreferences.edit();
+
+                editor.putInt(getString(R.string.preference_min_value),Integer.parseInt(Minimum.getText().toString()));
+                editor.putInt(getString(R.string.preference_optimal_value),Integer.parseInt(Optimal.getText().toString()));
+                editor.putInt(getString(R.string.preference_max_value),Integer.parseInt(Maximum.getText().toString()));
+                editor.commit();
+                Toast.makeText(context,"The values are updated",Toast.LENGTH_SHORT).show();
+                updateUI();
+
+            }
+        });
+    }
+
+    void updateUI()
+    {
+        SharedPreferences sharedPreferences=context.getSharedPreferences(getString(R.string.preference_file_key),context.MODE_PRIVATE);
+
+        int minimum=sharedPreferences.getInt(getString(R.string.preference_min_value),60);
+        int optimal=sharedPreferences.getInt(getString(R.string.preference_optimal_value),72);
+        int maximum=sharedPreferences.getInt(getString(R.string.preference_max_value),80);
+        Minimum.setText(""+minimum);
+        Optimal.setText(""+optimal);
+        Maximum.setText(""+maximum);
     }
 
 

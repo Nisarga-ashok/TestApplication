@@ -12,7 +12,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#ffffff"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/top_layout">
 
         <TextView
             android:id="@+id/textView"
@@ -20,13 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
             android:layout_weight="1"
             android:fontFamily="casual"
             android:textColor="@android:color/background_dark"
             android:textSize="40sp"
             android:textStyle="italic"
-            tools:text="SAMAYA" />
+            android:text="SAMAYA" />
 
         <ImageView
             android:id="@+id/Logo_image_view"
@@ -47,6 +48,7 @@
         android:layout_height="427dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@id/top_layout"
         android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/Date"
                 android:layout_width="197dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -65,7 +67,7 @@
                 android:inputType="date" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/Time"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -75,7 +77,7 @@
                 android:inputType="time" />
         </RelativeLayout>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -123,12 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/Saverange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:textSize="12sp" />
+
 
             <Button
                 android:id="@+id/Updaterange"
@@ -147,12 +144,13 @@
             android:layout_alignParentStart="true"
             tools:layout_marginTop="25dp">
 
-            <EditText
+            <TextView
                 android:id="@+id/editText99"
                 android:layout_width="153dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:textSize="20dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Pulse Rate" />
@@ -175,11 +173,12 @@
             android:layout_alignParentStart="true"
             tools:layout_marginTop="20dp">
 
-            <EditText
+            <TextView
                 android:id="@+id/editText5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textSize="20dp"
                 android:inputType="textPersonName"
                 android:text="Watch SOS" />
 

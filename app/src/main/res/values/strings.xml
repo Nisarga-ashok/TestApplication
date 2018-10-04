@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">TestApplication</string>
+    <string name="app_name">Samaya</string>
     <string name="samaya">SAMAYA</string>
     <string name="priority1">Priority 1</string>
     <string name="add">ADD</string>
     <string name="cancel">UPDATE</string>
+    <string name="preference_file_key">com.example.nisarga.testapplication</string>
+    <string name="preference_min_value">com.example.nisarga.testapplication.minValue</string>
+    <string name="preference_optimal_value">com.example.nisarga.testapplication.optValue</string>
+    <string name="preference_max_value">com.example.nisarga.testapplication.maxValue</string>
+
 </resources>

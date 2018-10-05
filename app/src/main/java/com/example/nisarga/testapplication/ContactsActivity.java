@@ -2,12 +2,15 @@ package com.example.nisarga.testapplication;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.StrictMode;
 import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +26,12 @@ import android.widget.Toast;
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import me.aflak.bluetooth.Bluetooth;
+import me.aflak.bluetooth.BluetoothCallback;
+import me.aflak.bluetooth.DeviceCallback;
+import me.aflak.bluetooth.DiscoveryCallback;
 
 public class ContactsActivity extends AppCompatActivity {
 
@@ -45,6 +54,8 @@ public class ContactsActivity extends AppCompatActivity {
     Button messageUpdateButton;
     private Button mSettings;
 
+    public static String TAG="TestTag";
+
 
 
     public static Context context;
@@ -54,6 +65,10 @@ public class ContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         mSettings=findViewById(R.id.Settings);
         mSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,11 +80,134 @@ public class ContactsActivity extends AppCompatActivity {
 
         checkPermission();
 
-        if(!isServiceRunning(BlueToothService.class))
+//        if(!isServiceRunning(BlueToothService.class))
+//        {
+//            Intent intent = new Intent(this, BlueToothService.class);
+//            startService(intent);
+//        }
+
+        Bluetooth bluetooth = new Bluetooth(getApplicationContext());
+        bluetooth.onStart();
+        bluetooth.enable();
+        bluetooth.setBluetoothCallback(new BluetoothCallback()
         {
-            Intent intent = new Intent(this, BlueToothService.class);
-            startService(intent);
+            @Override
+            public void onBluetoothTurningOn()
+            {
+
+            }
+
+            @Override
+            public void onBluetoothOn()
+            {
+
+            }
+
+            @Override
+            public void onBluetoothTurningOff()
+            {
+
+            }
+
+            @Override
+            public void onBluetoothOff()
+            {
+
+            }
+
+            @Override
+            public void onUserDeniedActivation()
+            {
+
+            }
+        });
+
+        bluetooth.setDiscoveryCallback(new DiscoveryCallback()
+        {
+            @Override
+            public void onDiscoveryStarted()
+            {
+
+            }
+
+            @Override
+            public void onDiscoveryFinished()
+            {
+
+            }
+
+            @Override
+            public void onDeviceFound(BluetoothDevice device)
+            {
+
+            }
+
+            @Override
+            public void onDevicePaired(BluetoothDevice device)
+            {
+
+            }
+
+            @Override
+            public void onDeviceUnpaired(BluetoothDevice device)
+            {
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+
+            }
+        });
+
+        BluetoothAdapter mBluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            // There are paired devices. Get the name and address of each paired device.
+            for (BluetoothDevice device : pairedDevices) {
+                String deviceName = device.getName();
+                Log.d(TAG,deviceName);
+                String deviceHardwareAddress = device.getAddress(); // MAC address
+                Log.d(TAG,deviceHardwareAddress);
+            }
         }
+
+        bluetooth.connectToAddress("B8:86:87:CE:45:0E");
+        Log.d(TAG,"Pair is called");
+
+        bluetooth.setDeviceCallback(new DeviceCallback()
+        {
+            @Override
+            public void onDeviceConnected(BluetoothDevice device)
+            {
+                Log.d(TAG,"Device connected");
+            }
+
+            @Override
+            public void onDeviceDisconnected(BluetoothDevice device, String message)
+            {
+                Log.d(TAG,"Device disconnected");
+            }
+
+            @Override
+            public void onMessage(String message)
+            {
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                Log.d(TAG,"Device error");
+            }
+
+            @Override
+            public void onConnectError(BluetoothDevice device, String message)
+            {
+
+            }
+        });
 
 
         context=getApplicationContext();
